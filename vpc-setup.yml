@@ -54,3 +54,41 @@
       resource_tags:
         Name: StudyBix-Pubsub3
     register: pubsub3_out
+
+# Private Subnet code
+
+  - name: create the Private subnet 1
+    ec2_vpc_subnet:
+      state: present
+      vpc_id: "{{vpcout.vpc.id}}"
+      cidr: "{{PrivSub1Cidr}}"
+      az: "{{zone1}}"
+      region: "{{region}}"
+      map_public: yes
+      resource_tags:
+        Name: StudyBix-Privatesub1
+    register: privatesub1_out
+
+  - name: create the private subnet 2
+    ec2_vpc_subnet:
+      state: present
+      vpc_id: "{{vpcout.vpc.id}}"
+      cidr: "{{PrivSub2Cidr}}"
+      az: "{{zone2}}"
+      region: "{{region}}"
+      map_public: yes
+      resource_tags:
+        Name: StudyBix-Privatesub2
+    register: privatesub2_out
+
+  - name: create the private subnet 3
+    ec2_vpc_subnet:
+      state: present
+      vpc_id: "{{vpcout.vpc.id}}"
+      cidr: "{{PrivSub3Cidr}}"
+      az: "{{zone3}}
+      region: "{{region}}"
+      map_public: yes
+      resource_tags:
+        Name: StudyBix-Privatesub3
+    register: privatesub3_out
