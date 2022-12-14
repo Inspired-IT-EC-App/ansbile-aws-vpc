@@ -86,7 +86,7 @@
       state: present
       vpc_id: "{{vpcout.vpc.id}}"
       cidr: "{{PrivSub3Cidr}}"
-      az: "{{zone3}}
+      az: "{{zone3}}"
       region: "{{region}}"
       map_public: yes
       resource_tags:
