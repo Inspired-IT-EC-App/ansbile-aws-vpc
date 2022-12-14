@@ -2,8 +2,8 @@
   connection: local
   gather_facts: false
   tasks:
-  - name: Import vpc variables
-    include_var: vars/vpc-setup
+  - name: Import VPC Variables
+    include_vars: vars/vpc-setup
 
   - name: Create studybix VPC
     ec2_vpc_net:
