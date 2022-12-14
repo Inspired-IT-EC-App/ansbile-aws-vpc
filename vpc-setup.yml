@@ -2,11 +2,11 @@
   connection: local
   gather_facts: false
   tasks:
-    - name: Import vpc variables
-      include_var: vars/vpc-setup
+  - name: Import vpc variables
+    include_var: vars/vpc-setup
 
-    - name: Create studybix VPC
-      ec2_vpc_net:
+  - name: Create studybix VPC
+    ec2_vpc_net:
         name: "{{vpc_name}}"
         cidr_block: "{{vpcCidr}}"
         region: "{{region}}"
@@ -14,5 +14,5 @@
         dns_hostnames: yes
         tenancy: default
         state: present
-      register: vpcout
+    register: vpcout
 
