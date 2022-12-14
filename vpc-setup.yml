@@ -16,10 +16,10 @@
       state: present
     register: vpcout
 
-  - debug:
-      var: vpcout
+  #- debug:
+   #   var: vpcout
 
-  - name: create the publuc subnet
+  - name: create the public subnet 1
     ec2_vpc_subnet:
       state: present
       vpc_id: "{{vpcout.vpc.id}}"
@@ -29,6 +29,28 @@
       map_public: yes
       resource_tags:
         Name: StudyBix-Pubsub1
+    register: pubsub1_out
 
-    register: pubsub1
+  - name: create the public subnet 2
+    ec2_vpc_subnet:
+      state: present
+      vpc_id: "{{vpcout.vpc.id}}"
+      cidr: "{{PubSub1Cidr}}"
+      az: "{{zone2}}"
+      region: "{{region}}"
+      map_public: yes
+      resource_tags:
+        Name: StudyBix-Pubsub2
+    register: pubsub2_out
 
+  - name: create the public subnet 3
+    ec2_vpc_subnet:
+      state: present
+      vpc_id: "{{vpcout.vpc.id}}"
+      cidr: "{{PubSub2Cidr}}"
+      az: "{{zone3}}"
+      region: "{{region}}"
+      map_public: yes
+      resource_tags:
+        Name: StudyBix-Pubsub3
+    register: pubsub3_out
