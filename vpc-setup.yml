@@ -28,7 +28,7 @@
       region: "{{region}}"
       map_public: yes
       resource_tags:
-        Name: StudyBix-
+        Name: StudyBix-Pubsub1
 
     register: pubsub1
 
