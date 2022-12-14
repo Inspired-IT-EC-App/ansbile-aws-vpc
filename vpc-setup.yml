@@ -23,7 +23,7 @@
     ec2_vpc_subnet:
       state: present
       vpc_id: "{{vpcout.vpc.id}}"
-      cidr: "{{PubSubCidr}}"
+      cidr: "{{PubSub3Cidr}}"
       az: "{{zone1}}"
       region: "{{region}}"
       map_public: yes
