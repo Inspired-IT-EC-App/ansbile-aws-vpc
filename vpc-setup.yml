@@ -107,17 +107,14 @@
   - name: Route Table for Public Subnet
     ec2_vpc_route_table:
       vpc_id: "{{vpcout.vpc.id}}"
-      state: present
       region: "{{region}}"
       tags:
         Name: Studybix-PubRT
-        subnets:
-          - "{{ pubsub1_out.subnet.id  }}"
-          - "{{ pubsub2_out.subnet.id  }}"
-          - "{{ pubsub3_out.subnet.id  }}"
+      subnets:
+        - "{{ pubsub1_out.subnet.id  }}"
+        - "{{ pubsub2_out.subnet.id  }}"
+        - "{{ pubsub3_out.subnet.id  }}"
       routes:
         - dest: 0.0.0.0/0
-          gateway_id: "{{ studybixigw_out.gateway_id }}"
-        - dest: ::/0
           gateway_id: "{{ studybixigw_out.gateway_id }}"
       register: pubRT_out
