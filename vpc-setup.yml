@@ -7,12 +7,28 @@
 
   - name: Create studybix VPC
     ec2_vpc_net:
-        name: "{{vpc_name}}"
-        cidr_block: "{{vpcCidr}}"
-        region: "{{region}}"
-        dns_support: yes
-        dns_hostnames: yes
-        tenancy: default
-        state: present
+      name: "{{vpc_name}}"
+      cidr_block: "{{vpcCidr}}"
+      region: "{{region}}"
+      dns_support: yes
+      dns_hostnames: yes
+      tenancy: default
+      state: present
     register: vpcout
+
+  - debug:
+      var: vpcout
+
+  - name: create the publuc subnet
+    ec2_vpc_subnet:
+      state: present
+      vpc_id: "{{vpcout.vpc.id}}"
+      cidr: "{{PubSubCidr}}"
+      az: "{{zone1}}"
+      region: "{{region}}"
+      map_public: yes
+      resource_tags:
+        Name: StudyBix-
+
+    register: pubsub1
 
