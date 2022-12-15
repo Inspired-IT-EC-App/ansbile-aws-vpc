@@ -1,5 +1,3 @@
----
-- name: Setup studybix bastian host
 - hosts: localhost
   connection: local
   gather_facts: false
@@ -8,7 +6,7 @@
     includes_vars: vars/bastian-host
 
   - name: import VPC Setup variable
-    includes_vars: vars/
+    includes_vars: vars/vars_output
 
   - name: Create key pair
     ec2_key:
@@ -36,7 +34,7 @@
         cidr_ip: "{{MYIP}}"
     register: BastienSG_out
 
-  - name: create EC2-Bastien host
+  -  name: create EC2-Bastien host
     ec2_instance:
         key_name: studybix-key
         region: "{{region}}"
