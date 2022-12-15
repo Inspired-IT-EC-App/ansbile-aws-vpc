@@ -35,7 +35,7 @@
     register: BastienSG_out
 
   -  name: create EC2-Bastien host
-     ec2:
+     ec2_instance:
         key_name: studybix-key
         region: "{{region}}"
         instance_type: t2.micro
