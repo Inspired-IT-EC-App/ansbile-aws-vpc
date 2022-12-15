@@ -39,7 +39,7 @@
         key_name: studybix-key
         region: "{{region}}"
         instance_type: t2.micro
-        image_id: "{{bastian_ami}}"
+        image: "{{bastian_ami}}"
         wait: yes
         wait_timeout: 300
         instance_tags:
