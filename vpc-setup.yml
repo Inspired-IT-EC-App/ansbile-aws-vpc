@@ -103,7 +103,7 @@
         Name: StudyBix-IGW
     register: studybixigw_out
 
-
+# Setup Public RT
   - name: Route Table for Public Subnet
     ec2_vpc_route_table:
       vpc_id: "{{vpcout.vpc.id}}"
@@ -117,4 +117,31 @@
       routes:
         - dest: 0.0.0.0/0
           gateway_id: "{{studybixigw_out.gateway_id}}"
+    register: pubRT_out
+
+# Setup NAT Gateway
+
+  - name: Create new nat gateway
+    ec2_vpc_nat_gateway:
+      vpc_id: "{{vpcout.vpc.id}}"
+      region: "{{region}}"
+      if_exist_do_not_create: true
+      subnet_id: "{{pubsub1_out.subnet.id}}"
+      wait: yes
+    register: NATGW_out
+
+# Setup route table for NAT Gateway
+  - name: Route Table for Public Subnet
+    ec2_vpc_route_table:
+      vpc_id: "{{vpcout.vpc.id}}"
+      region: "{{region}}"
+      tags:
+        Name: Studybix-PubRT
+      subnets:
+        - "{{privatesub1_out.subnet.id}}"
+        - "{{privatesub2_out.subnet.id}}"
+        - "{{privatesub3_out.subnet.id}}"
+      routes:
+        - dest: 0.0.0.0/0
+          gateway_id: "{{NATGW_out.nat_gateway_id}}"
     register: pubRT_out
