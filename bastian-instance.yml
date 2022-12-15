@@ -42,7 +42,7 @@
       image: "{{ bastian_ami }}"
       wait: yes
       wait_timeout: 300
-      instance_tags:
+      tags:
         Name: "Bastion_host"
         Project: StudyBix
         Owner: DevOps Team
