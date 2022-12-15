@@ -35,7 +35,7 @@
     register: BastienSG_out
 
   - name: Creating Bastion Host
-    ec2_instance:
+    ec2:
       key_name: studybix-key
       region: "{{region}}"
       instance_type: t2.micro
@@ -51,7 +51,7 @@
         Name: "Bastion_host"
         Project: StudyBix
         Owner: DevOps Team
-      group_id: "{{BastienSG_out.group_id}}"
+      security_group: bastion-host-sg
       vpc_subnet_id: "{{pubsub1id}}"
     register: bastionHost_out
 
