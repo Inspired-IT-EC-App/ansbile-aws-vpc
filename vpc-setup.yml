@@ -159,4 +159,23 @@
       - NATGW_out.nat_gateway_id
       - privRT_out.route_table.id
       - pubRT_out.route_table.id
-      - ststudybixigw_out.gateway_id
+      - studybixigw_out.gateway_id
+
+  - set_fact:
+      vpcid: "{{ vpcout.vpc.id  }}"
+      pubsub1id: "{{ pubsub1_out.subnet.id }}"
+      pubsub2id: "{{ pubsub2_out.subnet.id }}"
+      pubsub3id: "{{ pubsub3_out.subnet.id }}"
+      privsub1id: "{{ privatesub1_out.subnet.id }}"
+      privsub2id: "{{  privatesub2_out.subnet.id }}"
+      privsub3id: "{{  privatesub3_out.subnet.id }}"
+      NATGWid: "{{ NATGW_out.nat_gateway_id }}"
+      privRTid: "{{ privRT_out.route_table.id }}"
+      pubRTid: "{{ pubRT_out.route_table.id }}"
+      IGWid: "{{ studybixigw_out.gateway_id }}"
+      cacheable: yes
+
+  - name: Careate variable file for vpc output
+    copy:
+      content: "vpcid: {{ vpcout.vpc.id  }}\npubsub1id: {{ pubsub1_out.subnet.id }}\npubsub2id: {{ pubsub2_out.subnet.id }}\npubsub3id: {{ pubsub3_out.subnet.id }}\nprivsub1id: {{ privatesub1_out.subnet.id }}\nprivsub2id: {{  privatesub2_out.subnet.id }}\nprivsub3id: {{  privatesub3_out.subnet.id }}\nNATGWid: {{ NATGW_out.nat_gateway_id }}\nprivRTid: {{ privRT_out.route_table.id }}\nIGWid: {{ studybixigw_out.gateway_id }}\nIGWid: {{ studybixigw_out.gateway_id }}"
+      dest: vars/output.vars
