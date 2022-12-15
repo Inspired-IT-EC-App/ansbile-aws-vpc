@@ -1,0 +1,8 @@
+---
+- name: Setup studybix bastian host
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: import VPC Setup variable
+      includes_vars: vars/bastian-host
