@@ -128,6 +128,8 @@
       wait: yes
       region: "{{region}}"
       if_exist_do_not_create: true
+      tags:
+        Name: Studybix-NAT
     register: NATGW_out
 
 # Setup route table for NAT Gateway
