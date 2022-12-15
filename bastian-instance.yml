@@ -3,10 +3,10 @@
   gather_facts: false
   tasks:
   - name: import VPC Setup variable
-    includes_vars: vars/bastian-host
+    include_vars: vars/bastian-host
 
   - name: import VPC Setup variable
-    includes_vars: vars/vars_output
+    include_vars: vars/vars_output
 
   - name: Create key pair
     ec2_key:
