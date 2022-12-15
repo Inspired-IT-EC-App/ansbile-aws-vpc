@@ -3,7 +3,7 @@
   gather_facts: false
   tasks:
   - name: import VPC Setup variable
-    include_vars: vars/bastian-host
+    include_vars: vars/bestian-host
 
   - name: import VPC Setup variable
     include_vars: vars/vars_output
