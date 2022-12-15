@@ -53,7 +53,7 @@
           Owner: DevOps Team
         group_id: "{{ BastienSG_out.group_id}}"
         vpc_subnet_id: "{{pubsub2id}}"
-    register: BastienHost_out
+     register: BastienHost_out
 
 
 
