@@ -6,3 +6,59 @@
   tasks:
     - name: import VPC Setup variable
       includes_vars: vars/bastian-host
+
+    - name: import VPC Setup variable
+      includes_vars: vars/
+
+    - name: Create key pair
+      ec2_key:
+        name: studybix-key
+        region: "{{region}}"
+      register: key_out
+
+    - name: save private key into bastian host
+      copy:
+        content: "{{key_out.key.private_key}}"
+        dest: ./bastion-key.pem
+        mode: 0600
+      when: key_out.changed
+
+    - name: Create a security group
+      ec2_group:
+        name: bastion-host-sg
+        description: Allow 22 port
+        region: "{{region}}"
+        vpc_id: "{{vpcid}}"
+        rules:
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: "{{MYIP}}"
+      register: BastienSG_out
+
+    - name: create EC2-Bastien host
+      ec2_instance:
+        key_name: studybix-key
+        region: "{{region}}"
+        instance_type: t2.micro
+        image_id: "{{bastian_ami}}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "Bastion-Host"
+          Project: Studybix
+          Owner: DevOps Team
+        exact_count: 1
+        count_tag:
+          Name: "Bastion-Host"
+          Project: Studybix
+          Owner: DevOps Team
+        group_id: "{{ BastienSG_out.group_id}}"
+      register: BastienHost_out
+
+
+
+
+
+
+
