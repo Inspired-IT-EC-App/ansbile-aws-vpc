@@ -47,10 +47,10 @@
           Project: Studybix
           Owner: DevOps Team
         exact_count: 1
-        count_tag:
-          Name: "Bastion-Host"
-          Project: Studybix
-          Owner: DevOps Team
+        #count_tag:
+         # Name: "Bastion-Host"
+          #Project: Studybix
+          #Owner: DevOps Team
         group_id: "{{ BastienSG_out.group_id}}"
         vpc_subnet_id: "{{pubsub2id}}"
      register: BastienHost_out
