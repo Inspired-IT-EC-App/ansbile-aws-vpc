@@ -34,6 +34,10 @@
         cidr_ip: "{{MYIP}}"
     register: BastienSG_out
 
+  - name: install boto
+    pip:
+      name: boto
+
   - name: Creating Bastion Host
     ec2:
       key_name: studybix-key
