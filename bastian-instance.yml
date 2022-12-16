@@ -42,7 +42,7 @@
       image: "{{ bastian_ami }}"
       wait: yes
       wait_timeout: 300
-      tags:
+      instance_tags:
         Name: "Bastion_host"
         Project: StudyBix
         Owner: DevOps Team
@@ -51,7 +51,7 @@
         Name: "Bastion_host"
         Project: StudyBix
         Owner: DevOps Team
-      security_group: bastion-host-sg
+      group: bastion-host-sg
       vpc_subnet_id: "{{pubsub1id}}"
     register: bastionHost_out
 
