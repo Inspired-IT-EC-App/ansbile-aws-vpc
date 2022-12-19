@@ -36,7 +36,7 @@
             cidr_ip: 0.0.0.0/0
       register: SbixELBSG_out
 
-    - name: Create a security group for ELB
+    - name: Create a security group for Sbix Stack
       ec2_group:
         name: sbixStack-sg
         description: Allow 22 port from any where
@@ -45,19 +45,19 @@
         purge_rules: no
         rules:
           - proto: tcp
-            from_port: 22
-            to_port: 22
-            cidr_ip: "{{BastionSGid}}"
-
-          - proto: tcp
             from_port: 80
             to_port: 80
             cidr_ip: "{{SbixELBSG_out.group_id}}"
 
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: "{{BastionSGid}}"
+
       register: SbixStackSG_out
 
 
-    - name: Create a security group for ELB
+    - name: update SG with its own sg id
       ec2_group:
         name: sbixStack-sg
         description: Allow all Traffic form ELB any where
