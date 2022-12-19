@@ -22,3 +22,36 @@
         dest: "./loginkey_sbix.pem"
         mode: 0600
       when: sbixstack_out.changed
+
+    - name: Create a security group for ELB
+      ec2_group:
+        name: sbixELB-sg
+        description: Allow 80 port from any where
+        region: "{{region}}"
+        vpc_id: "{{vpcid}}"
+        rules:
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: cidr_ip: 0.0.0.0/0
+      register: SbixELBSG_out
+
+    - name: Create a security group for ELB
+      ec2_group:
+        name: sbixStack-sg
+        description: Allow 22 port from any where
+        region: "{{region}}"
+        vpc_id: "{{vpcid}}"
+        purge_rules: no
+        rules:
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: "{{BastionSGid}}"
+
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: "{{SbixELBSG_out.group_id}}"
+
+      register: SbixStackSG_out
