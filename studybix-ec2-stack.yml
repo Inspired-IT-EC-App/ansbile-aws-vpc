@@ -36,10 +36,6 @@
             cidr_ip: 0.0.0.0/0
       register: SbixELBSG_out
 
-    - name: install boto
-      pip:
-        name: boto
-
     - name: Create a security group for Sbix Stack
       ec2_group:
         name: sbixStack-sg
@@ -51,12 +47,12 @@
           - proto: tcp
             from_port: 80
             to_port: 80
-            cidr_ip: "{{SbixELBSG_out.group_id}}"
+            group_id: "{{SbixELBSG_out.group_id}}"
 
           - proto: tcp
             from_port: 22
             to_port: 22
-            cidr_ip: "{{BastionSGid}}"
+            group_id: "{{BastionSGid}}"
 
       register: SbixStackSG_out
 
