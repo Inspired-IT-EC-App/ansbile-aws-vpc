@@ -56,6 +56,9 @@
 
       register: SbixStackSG_out
 
+    - name: install boto
+      pip:
+        name: boto
 
     - name: update SG with its own sg id
       ec2_group:
