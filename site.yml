@@ -1,11 +1,7 @@
 ---
 
-- hosts: localhost
-  connection: local
-  gather_facts: false
-  tasks:
-    - name: Import VPC Variables
-      import_playbook: vars/vpc-setup
+- name: Import VPC Variables
+  import_playbook: vars/vpc-setup
 
-    - name: Import VPC Variables
-      import_playbook: vars/bastian-instance.yml
+- name: Import VPC Variables
+  import_playbook: vars/bastian-instance.yml
