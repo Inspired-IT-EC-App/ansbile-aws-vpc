@@ -33,7 +33,7 @@
           - proto: tcp
             from_port: 80
             to_port: 80
-            cidr_ip: cidr_ip: 0.0.0.0/0
+            cidr_ip: 0.0.0.0/0
       register: SbixELBSG_out
 
     - name: Create a security group for ELB
