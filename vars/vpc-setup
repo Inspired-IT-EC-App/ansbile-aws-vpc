@@ -26,5 +26,5 @@ state: present
 #bstian-Host Setup
 
 bastian_ami: ami-0beaa649c482330f7
-MYIP: 49.205.42.728/32
+MYIP: 124.123.177.24/32
 
