@@ -1,6 +1,5 @@
 ---
-
-- improt_playbook: vpc-setup.yml
-- improt_playbook: bastian-instance.yml
+- import_playbook: vpc-setup.yml
+- import_playbook: bastian-instance.yml
 
 
