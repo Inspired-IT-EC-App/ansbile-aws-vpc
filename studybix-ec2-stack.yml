@@ -10,6 +10,9 @@
     - name: Import studybix Setup Variables
       include_vars: vars/vars_output
 
+    - name: Import studybix Stack Variables
+      include_vars: vars/studybixstacksetup
+
     - name: Create key pair
       ec2_key:
         name: sbixstack-key
@@ -53,7 +56,6 @@
             from_port: 22
             to_port: 22
             group_id: "{{BastionSGid}}"
-
       register: SbixStackSG_out
 
 
@@ -67,3 +69,119 @@
         rules:
           - proto: all
             group_id: "{{SbixStackSG_out.group_id}}"
+
+
+    - name: Creating Ngnix-Server-web01
+      ec2:
+        key_name: sbixstack-key
+        region: "{{region}}"
+        instance_type: t2.micro
+        image: "{{ nginx_ami }}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "web01"
+          Project: StudyBix
+          Owner: DevOps Team
+        exact_count: 1
+        count_tag:
+          Name: "web01"
+          Project: StudyBix
+          Owner: DevOps Team
+        group: bastion-host-sg
+        vpc_subnet_id: "{{privsub1id}}"
+        group_id: "{{SbixStackSG_out.group_id}}"
+      register: web01_out
+
+
+    - name: Creating Tomcat-server-app01
+      ec2:
+        key_name: sbixstack-key
+        region: "{{region}}"
+        instance_type: t2.micro
+        image: "{{ tomcat_ami }}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "app01"
+          Project: StudyBix
+          Owner: DevOps Team
+        exact_count: 1
+        count_tag:
+          Name: "app01"
+          Project: StudyBix
+          Owner: DevOps Team
+        group: bastion-host-sg
+        vpc_subnet_id: "{{privsub1id}}"
+        group_id: "{{SbixStackSG_out.group_id}}"
+      register: app01_out
+
+    - name: Creating memcache-Server-web01
+      ec2:
+        key_name: sbixstack-key
+        region: "{{region}}"
+        instance_type: t2.micro
+        image: "{{ memcache_ami }}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "mc01"
+          Project: StudyBix
+          Owner: DevOps Team
+        exact_count: 1
+        count_tag:
+          Name: "mc01"
+          Project: StudyBix
+          Owner: DevOps Team
+        group: bastion-host-sg
+        vpc_subnet_id: "{{privsub1id}}"
+        group_id: "{{SbixStackSG_out.group_id}}"
+      register: mc01_out
+
+    - name: Creating rabbitMq-Server-web01
+      ec2:
+        key_name: sbixstack-key
+        region: "{{region}}"
+        instance_type: t2.micro
+        image: "{{ rmq_ami }}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "rmq01"
+          Project: StudyBix
+          Owner: DevOps Team
+        exact_count: 1
+        count_tag:
+          Name: "rmq01"
+          Project: StudyBix
+          Owner: DevOps Team
+        group: bastion-host-sg
+        vpc_subnet_id: "{{privsub1id}}"
+        group_id: "{{SbixStackSG_out.group_id}}"
+      register: rmq01_out
+
+
+    - name: Creating rabbitMq-Server-web01
+      ec2:
+        key_name: sbixstack-key
+        region: "{{region}}"
+        instance_type: t2.micro
+        image: "{{ msql_ami }}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "db01"
+          Project: StudyBix
+          Owner: DevOps Team
+        exact_count: 1
+        count_tag:
+          Name: db01"
+          Project: StudyBix
+          Owner: DevOps Team
+        group: bastion-host-sg
+        vpc_subnet_id: "{{privsub1id}}"
+        group_id: "{{SbixStackSG_out.group_id}}"
+      register: db01_out
+
+    - debug:
+        var: db01_out
