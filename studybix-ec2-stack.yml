@@ -55,3 +55,15 @@
             cidr_ip: "{{SbixELBSG_out.group_id}}"
 
       register: SbixStackSG_out
+
+
+    - name: Create a security group for ELB
+      ec2_group:
+        name: sbixStack-sg
+        description: Allow all Traffic form ELB any where
+        region: "{{region}}"
+        vpc_id: "{{vpcid}}"
+        purge_rules: no
+        rules:
+          - proto: all
+            group_id: "{{SbixStackSG_out.group_id}}"
