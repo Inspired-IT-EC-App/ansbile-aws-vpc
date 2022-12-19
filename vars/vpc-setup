@@ -22,3 +22,9 @@ zone2: us-east-2b
 zone3: us-east-2c
 
 state: present
+
+#bstian-Host Setup
+
+bastian_ami: ami-0beaa649c482330f7
+MYIP: 49.205.42.728/32
+
