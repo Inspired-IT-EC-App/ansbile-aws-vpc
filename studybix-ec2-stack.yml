@@ -1,0 +1,24 @@
+---
+- name: Setup studybix stack
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Import VPC Setup Variables
+      include_vars: vars/vars_output
+
+    - name: Import studybix Setup Variables
+      include_vars: vars/vars_output
+
+    - name: Create key pair
+      ec2_key:
+        name: sbixstack-key
+        region: "{{region}}"
+      register: sbixstack_out
+
+    - name: save private key into bastian host
+      copy:
+        content: "{{sbixstack_out.key.private_key}}"
+        dest: "./loginkey_sbix.pem"
+        mode: 0600
+      when: sbixstack_out.changed
