@@ -235,7 +235,7 @@
   
   
          [websrvgrp]
-          web01
+         web01
          [appsrvgrp]
          app01
          [rmqsrvgrp]
